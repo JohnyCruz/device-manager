@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.johny.challenge.manager.model.Device;
+import com.johny.challenge.manager.model.DeviceRequestBody;
 import com.johny.challenge.manager.service.DeviceService;
+
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -76,9 +79,12 @@ public class DeviceController {
     @Operation(summary = "Create a new device")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Device Created", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = Device.class)) }) })
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = DeviceRequestBody.class)) }),
+                    @ApiResponse(responseCode = "400", description = "Body has unknown fields", content = @Content) })
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Device> createDevice(@RequestBody Device device) throws URISyntaxException {
+    public ResponseEntity<Device> createDevice(@Valid @RequestBody DeviceRequestBody deviceRequestBody) throws URISyntaxException {
+       
+        Device device = deviceRequestBody.toDevice();
         logger.info("Create new device: {}", device);
         device = this.deviceService.create(device);
         logger.info("Device created successfully: {}", device);
@@ -87,8 +93,8 @@ public class DeviceController {
 
     @Operation(summary = "Update a device")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Device Updated", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = Device.class)) }) })
+            @ApiResponse(responseCode = "200", description = "Device Updated", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Device.class)) }) })
     @PutMapping(value = "/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Device> updateDevice(@RequestBody Device device,
             @RequestParam(required = false) boolean full) {
@@ -99,7 +105,7 @@ public class DeviceController {
 
     @Operation(summary = "Delete a device by its id")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Device deleted") })
+            @ApiResponse(responseCode = "200", description = "Device deleted") })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDevice(@PathVariable("id") Integer id) {
         deviceService.deleteDeviceById(id);
