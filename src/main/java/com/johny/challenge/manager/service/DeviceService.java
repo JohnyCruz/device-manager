@@ -1,7 +1,5 @@
 package com.johny.challenge.manager.service;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.NoSuchElementException;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.johny.challenge.manager.model.Device;
 import com.johny.challenge.manager.repository.DeviceRepository;
+import com.johny.challenge.manager.util.Util;
 
 @Service
 public class DeviceService {
@@ -22,7 +21,7 @@ public class DeviceService {
     private DeviceRepository deviceRepository;
 
     public Device create(Device device) {
-        device.setCreationTime(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
+        device.setCreationTime(Util.getCurrentDate());
         return deviceRepository.save(device);
     }
 
@@ -47,7 +46,7 @@ public class DeviceService {
 
     public Device updateFull(Device device) {
         if (deviceRepository.findById(device.getId()).isPresent()) {
-            device.setCreationTime(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
+            device.setCreationTime(Util.getCurrentDate());
             return deviceRepository.save(device);
         }
         throw new NoSuchElementException("Device with id " + device.getId() + " Not found");
