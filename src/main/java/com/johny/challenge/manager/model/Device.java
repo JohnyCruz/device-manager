@@ -24,16 +24,14 @@ public class Device {
     private int id;
 
     @Column
-    @NotBlank
+    @NotBlank(message = "The Name is required.")
     private String name;
 
     @Column
-    @NotBlank
+    @NotBlank(message = "The Brand is required.")
     private String brand;
 
     @Column
-    //@JsonDeserialize(using = LocalDateDeserializer.class)
-    //@JsonSerialize(using = LocalDateSerializer.class)
     private LocalDateTime creationTime;
 
     public String getName() {
