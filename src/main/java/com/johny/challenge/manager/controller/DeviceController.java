@@ -105,7 +105,7 @@ public class DeviceController {
 
     @Operation(summary = "Delete a device by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Device deleted") })
+            @ApiResponse(responseCode = "204", description = "Device deleted") })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDevice(@PathVariable("id") Integer id) {
         deviceService.deleteDeviceById(id);
