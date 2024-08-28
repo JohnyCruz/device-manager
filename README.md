@@ -45,7 +45,7 @@ run the docker container which contains the PostgreSQL database
 docker compose build
 docker compose up
 ```
-in another terminal, and still inside teh device-manager folder, start the application 
+in another terminal, and still inside the device-manager folder, start the application 
 
 ```
 mvn spring-boot:run
@@ -119,7 +119,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Spring Boot](https://spring.io/projects/spring-boot) - The web framework used
+* [Spring Boot](https://spring.io/projects/spring-boot) - Web framework
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Docker](https://www.docker.com/) - Container Management
 * [Postgres](https://maven.apache.org/) - Docker Image of the PostgreSQL object-relational database 
