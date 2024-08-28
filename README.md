@@ -109,13 +109,21 @@ curl --location --request PUT 'http://localhost:8080/devices/?full=true' \
 
 Delete Devices
 ```
-curl --location --request DELETE 'http://localhost:8080/devices/40' \
+curl --location --request DELETE 'http://localhost:8080/devices/1' \
 --header 'X-API-KEY: key'
 ```
 
-## Deployment
+## Disclaimer
 
-Add additional notes about how to deploy this on a live system
+All credentials are shown in plain text just to make it easier to evaluate and should never happen in a real project.
+
+database user: admin
+
+database password: nimda
+
+authentication key: X-API-KEY
+
+authentication value: key
 
 ## Built With
 
